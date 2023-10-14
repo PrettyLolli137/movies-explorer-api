@@ -8,8 +8,8 @@ const {
 
 } = require('../controllers/movies');
 
-movies.get('/movies', getMovie);
-movies.post('/movies', validateMovie, createMovie);
-movies.delete('/movies/:movieId', validateId, deleteMovie);
+movies.get('/', getMovie);
+movies.post('/', validateMovie, createMovie);
+movies.delete('/:movieId', validateId, deleteMovie);
 
 module.exports = movies;

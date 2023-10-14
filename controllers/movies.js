@@ -122,4 +122,30 @@ if (req.params.movieId.length === 24) {
   res.status(400).send({ message: 'Некорректный _id фильма' });
 }
 };
+
+    .then((movie) => {
+      Movie.findById(movie._id)
+        .orFail()
+        .populate('owner')
+        .then((data) => res.status(HTTP_STATUS_CREATED).send(data))
+        .catch(() => res
+          .status(404)
+          .send({ message: 'Фильма  с указанным  _id не найдено' }));
+    })
+    .catch((err) => {
+      if (err instanceof mongoose.Error.DocumentNotFoundError) {
+        next(new NotFoundError('Фильма  с таким _id нету'));
+      } else {
+        next(err);
+      }
+    })
+    .catch((err) => {
+      if (err instanceof mongoose.Error.ValidationError) {
+        next(new BadRequestError(err.message));
+      } else {
+        next(err);
+      }
+    });
+};
+HTTP_STATUS_CREATED
 */

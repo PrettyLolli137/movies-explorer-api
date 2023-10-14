@@ -8,8 +8,8 @@ const { createUser, login } = require('../controllers/users');
 router.post('/signup', validateUser, createUser);
 router.post('/signin', validateLogin, login);
 
-router.use(auth, users);
-router.use(auth, movies);
+router.use('/users', auth, users);
+router.use('/movies', auth, movies);
 
 router.use('*', (req, res) => {
   res.status(404).send({ message: 'Страница не найдена' });
