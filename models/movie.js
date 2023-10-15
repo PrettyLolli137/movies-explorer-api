@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const urlRegex = require('../utils/constant');
+const validator = require('validator');
 
 const movieSchema = new mongoose.Schema({
   country: {
@@ -20,33 +20,27 @@ const movieSchema = new mongoose.Schema({
   },
   image: {
     type: String,
-    required: [true, 'Поле "link" должно быть заполнено'],
+    required: [true, 'Поле "image" должно быть заполнено'],
     validate: {
-      validator(v) {
-        return urlRegex.test(v);
-      },
-      message: 'Введен неверный URL',
+      validator: (v) => validator.isURL(v),
+      message: 'Некорректный URL для картинки',
     },
   },
 
   trailerLink: {
     type: String,
-    required: [true, 'Поле "link" должно быть заполнено'],
+    required: [true, 'Поле "trailerLink" должно быть заполнено'],
     validate: {
-      validator(v) {
-        return urlRegex.test(v);
-      },
-      message: 'Введен неверный URL',
+      validator: (v) => validator.isURL(v),
+      message: 'Некорректный URL для картинки',
     },
   },
   thumbnail: {
     type: String,
-    required: [true, 'Поле "link" должно быть заполнено'],
+    required: [true, 'Поле "thumbnail" должно быть заполнено'],
     validate: {
-      validator(v) {
-        return urlRegex.test(v);
-      },
-      message: 'Введен неверный URL',
+      validator: (v) => validator.isURL(v),
+      message: 'Некорректный URL для картинки',
     },
   },
   owner: {
@@ -69,7 +63,5 @@ const movieSchema = new mongoose.Schema({
   },
 
 });
-
-// осталось добавить ссылки
 
 module.exports = mongoose.model('movie', movieSchema);
