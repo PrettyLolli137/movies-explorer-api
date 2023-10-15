@@ -32,7 +32,7 @@ module.exports.createMovie = (req, res, next) => {
     year,
     description,
     image,
-    trailerLink,
+    trailer,
     nameRU,
     nameEN,
     thumbnail,
@@ -46,7 +46,7 @@ module.exports.createMovie = (req, res, next) => {
     year,
     description,
     image,
-    trailerLink,
+    trailer,
     nameRU,
     nameEN,
     thumbnail,
@@ -68,7 +68,7 @@ module.exports.deleteMovie = (req, res, next) => {
     .orFail()
     .then((movie) => {
       if (movie.owner.equals(req.user._id)) {
-        Movie.deleteOne(movie)
+        Movie.deleteOne({ _id: movie._id })
           .then(() => res.send({ message: MovieDeleteMessage }))
           .catch(next);
       } else {
@@ -76,7 +76,7 @@ module.exports.deleteMovie = (req, res, next) => {
       }
     })
     .catch((err) => {
-      if (err instanceof Error.CastError) {
+      if (err instanceof mongoose.Error.CastError) {
         next(new BadRequestError(`${BadRequestMessage} : ${err.message}`));
       } else if (err instanceof Error.DocumentNotFoundError) {
         next(new NotFoundError(MovieNotFoundMessage));
@@ -85,3 +85,26 @@ module.exports.deleteMovie = (req, res, next) => {
       }
     });
 };
+
+/*
+ Movie.findById(req.params.movieId)
+    .orFail()
+    .then((movie) => {
+      if (movie.owner.equals(req.user._id)) {
+        Movie.deleteOne(movie)
+          .then(() => res.send({ message: MovieDeleteMessage }))
+          .catch(next);
+      } else {
+        throw new ForbiddenError(MovieForbiddenMessage);
+      }
+    })
+    .catch((err) => {
+      if (err instanceof mongoose.Error.CastError) {
+        next(new BadRequestError(`${BadRequestMessage} : ${err.message}`));
+      } else if (err instanceof Error.DocumentNotFoundError) {
+        next(new NotFoundError(MovieNotFoundMessage));
+      } else {
+        next(err);
+      }
+    });
+*/

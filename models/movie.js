@@ -27,7 +27,7 @@ const movieSchema = new mongoose.Schema({
     },
   },
 
-  trailerLink: {
+  trailer: {
     type: String,
     required: [true, 'Поле "trailerLink" должно быть заполнено'],
     validate: {
@@ -50,8 +50,7 @@ const movieSchema = new mongoose.Schema({
   },
   movieId: {
     type: Number,
-    required: true,
-    ref: 'movie',
+    required: [true, 'Поле "movieId" должно быть заполнено'],
   },
   nameRU: {
     type: String,
@@ -62,6 +61,6 @@ const movieSchema = new mongoose.Schema({
     required: [true, 'Поле должно быть заполнено'],
   },
 
-});
+}, { versionKey: false });
 
 module.exports = mongoose.model('movie', movieSchema);
