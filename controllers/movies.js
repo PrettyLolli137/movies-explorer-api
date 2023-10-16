@@ -16,7 +16,7 @@ module.exports.getMovie = (req, res, next) => {
   Movie.find({ owner: req.user._id })
     .then((movies) => res.send(movies))
     .catch((err) => {
-      if (err instanceof Error.DocumentNotFoundError) {
+      if (err instanceof mongoose.Error.DocumentNotFoundError) {
         next(new NotFoundError(FilmsNotFoundMessage));
       } else {
         next(err);
@@ -78,7 +78,7 @@ module.exports.deleteMovie = (req, res, next) => {
     .catch((err) => {
       if (err instanceof mongoose.Error.CastError) {
         next(new BadRequestError(`${BadRequestMessage} : ${err.message}`));
-      } else if (err instanceof Error.DocumentNotFoundError) {
+      } else if (err instanceof mongoose.Error.DocumentNotFoundError) {
         next(new NotFoundError(MovieNotFoundMessage));
       } else {
         next(err);

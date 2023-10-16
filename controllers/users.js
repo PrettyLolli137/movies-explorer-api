@@ -18,9 +18,9 @@ module.exports.getMeUser = (req, res, next) => {
     .orFail()
     .then((currentUser) => res.send(currentUser))
     .catch((err) => {
-      if (err instanceof Error.DocumentNotFoundError) {
+      if (err instanceof mongoose.Error.DocumentNotFoundError) {
         next(new NotFoundError(UserNotFoundMessage));
-      } else if (err instanceof Error.CastError) {
+      } else if (err instanceof mongoose.Error.CastError) {
         next(new BadRequestError(`${BadRequestMessage} : ${err.message}`));
       } else {
         next(err);
