@@ -9,7 +9,6 @@ const userSchema = new mongoose.Schema({
     required: [true, 'Поле должно быть заполнено'],
     minlength: [2, 'Минимальная длина поля  - 2'],
     maxlength: [30, 'Максимальная длина поля  - 30'],
-    match: [/^[A-Za-zА-Яа-яЁё]+$/, 'Имя пользователя должно содержать только буквы'],
   },
   email: {
     type: String,
