@@ -12,6 +12,6 @@ npm run dev — запускает сервер с hot-reload
 
 IP: 158.160.101.96
 
-Ссылка на репозиторий - https://github.com/PrettyLolli137/movies-explorer-api
+Ссылка на сайт : https://movie-levi-69.nomoredomainsrocks.ru/movies
 
 Ссылка на API сервер проекта - https://levi-69.nomoredomainsrocks.ru
